@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="06f9157c-ceb1-4ce5-8256-1d26aab3ada0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/head.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/express_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/untitled.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/www" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/extend/res.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/link/database.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mongodb/modules.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mongodb/schema/user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/eventsource.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/date_format.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/socket.io.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/register.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/socket.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/test_placeholder.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/root.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes/users.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/validate/verification.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/error.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/index.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/layout.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/meta.jade" />
-    </list>
+    <list default="true" id="06f9157c-ceb1-4ce5-8256-1d26aab3ada0" name="Default" comment="" />
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -121,8 +84,8 @@
       <file leaf-file-name="bower.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bower.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+            <state relative-caret-position="266">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -185,8 +148,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="399" />
-    <option name="y" value="36" />
+    <option name="x" value="-144" />
+    <option name="y" value="114" />
     <option name="width" value="1936" />
     <option name="height" value="856" />
   </component>
@@ -532,15 +495,15 @@
       <workItem from="1468374807459" duration="627000" />
       <workItem from="1468391335000" duration="2574000" />
       <workItem from="1468394161683" duration="3221000" />
-      <workItem from="1468403852577" duration="194000" />
+      <workItem from="1468403852577" duration="908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68932000" />
+    <option name="totallyTimeSpent" value="69646000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="399" y="36" width="1936" height="856" extended-state="0" />
+    <frame x="-144" y="114" width="1936" height="856" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20495258" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -917,8 +880,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+        <state relative-caret-position="266">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
           <folding />
         </state>
       </provider>
