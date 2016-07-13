@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <script src="javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <h1>注册</h1>
+    <form action="/users/register" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input id="username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input id="password" type="text" name="password" placeholder="请输入密码" required value="1">
+        </div>
+        <div>
+            <label for="repeat_password">确认密码</label>
+            <input id="repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
+        </div>
+       <!-- <div>
+            <label for="nickname">昵称</label>
+            <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
+        </div>
+        <div>
+            <label for="phone">手机号</label>
+            <input id="phone" type="number" name="phone" placeholder="请输入手机号">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="number" name="email" placeholder="请输入Email">
+        </div>
+        <div>
+            <label for="head">上传头像</label>
+            <input id="head" type="file" name="head" placeholder="请重新手机号">
+        </div>
+        <div>
+            <label for="email">性别</label>
+            <label for="man">男</label>
+            <input id="man" type="radio" name="sex" placeholder="男" checked>
+            <label for="woman">女</label>
+            <input id="woman" type="radio" name="sex" placeholder="女">
+        </div>-->
+        <input type="submit" value="提交">
+    </form>
+    <button id="get">获取全部用户</button>
+    <ul id="ul">
+    </ul>
+    <h1>更新</h1>
+    <form action="/users/update" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input id="update_username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input id="update_password" type="text" name="password" placeholder="请输入密码" required value="1">
+        </div>
+        <div>
+            <label for="repeat_password">确认密码</label>
+            <input id="update_repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
+        </div>
+        <!-- <div>
+             <label for="nickname">昵称</label>
+             <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
+         </div>
+         <div>
+             <label for="phone">手机号</label>
+             <input id="phone" type="number" name="phone" placeholder="请输入手机号">
+         </div>
+         <div>
+             <label for="email">Email</label>
+             <input id="email" type="number" name="email" placeholder="请输入Email">
+         </div>
+         <div>
+             <label for="head">上传头像</label>
+             <input id="head" type="file" name="head" placeholder="请重新手机号">
+         </div>
+         <div>
+             <label for="email">性别</label>
+             <label for="man">男</label>
+             <input id="man" type="radio" name="sex" placeholder="男" checked>
+             <label for="woman">女</label>
+             <input id="woman" type="radio" name="sex" placeholder="女">
+         </div>-->
+        <input type="submit" value="提交">
+    </form>
+<script>
+    var url = location.origin;
+    var ul = $('#ul');
+    $('#get').click(function () {
+        $.ajax({
+            url:url + '/lyk/getUser',
+            dataType:'json',
+            success:function (json) {
+                var html = '';
+                $.each(json.users,function () {
+                    html += '<li>'+JSON.stringify(this)+'' +
+                            '<a href="javascripts" data-id="'+this._id+'">delete</a>' +
+                            '</li>';
+                });
+                ul.html(html);
+            }
+        });
+    });
+    ul.on('click','a',function (e) {
+        e = e || window.e;
+        var target = e.target || e.srcElement;
+        var id = $(target).data('id');
+        $.ajax({
+            url:url + '/lyk/deleteUser',
+            dataType:'json',
+            type:'post',
+            data:{
+                id:id
+            },
+            success:function (json) {
+                alert(json.message);
+            }
+        });
+    })
+</script>
+</body>
+</html>

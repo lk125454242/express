@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <label for="placeholder"> 测试 placeholder </label>
+    <input id="placeholder" type="text" placeholder="测试 placeholder">
+
+    <input type="text" placeholder="1123">
+    <input type="text" placeholder="1123">
+    <input type="text" placeholder="1123">
+    <input type="password" placeholder="1123">
+    <input type="password" placeholder="1123">
+    <input type="password" placeholder="1123">
+    <script src="javascripts/jquery.min.js"></script>
+    <script>
+        $.fn.extend({
+            placeholder:function () {
+                var regexp = /\S/;
+                var password_input = this.filter('[type=password]');
+                var no_password_input = this.filter('[type!=password]');
+                password_input.attr('type','text').prop('type','text');
+                no_password_input.on('blur',function () {
+                    var $this = $(this);
+                    var value = $this.val();
+                    if( !regexp.test(value) || (value === $this.attr('placeholder'))){
+                        $this.val($this.attr('placeholder')).addClass('placeholder');
+                    }
+                });
+                no_password_input.on('focus',function () {
+                    var $this = $(this);
+                    var value = $this.val();
+                    if( !regexp.test(value) || (value === $this.attr('placeholder'))){
+                        $this.val('');
+                        $this.removeClass('placeholder');
+                    }
+                });
+                password_input.on('blur',function () {
+                    var $this = $(this);
+                    var value = $this.val();
+                    if( !regexp.test(value) || (value === $this.attr('placeholder'))){
+                        $this.val($this.attr('placeholder')).addClass('placeholder').attr('type','text').prop('type','text');
+                    }
+                });
+                password_input.on('focus',function () {
+                    var $this = $(this);
+                    $this.attr('type','password').prop('type','password');
+                    var value = $this.val();
+                    if( !regexp.test(value) || (value === $this.attr('placeholder'))){
+                        $this.val('');
+                        $this.removeClass('placeholder');
+                    }
+                });
+                return this;
+            }
+        });
+        $('input').placeholder().on('blur focus keydown',function () {
+            console.log(1);
+        });
+    </script>
+</body>
+</html>

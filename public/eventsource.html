@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Source</title>
+</head>
+<body>
+<ul id="message">
+</ul>
+<script src="./javascripts/jquery.min.js"></script>
+<script src="./javascripts/date_format.js"></script>
+<script>
+    /*
+    * Chrome 3s/times
+    * FireFox 5s/times
+    * */
+    $ul = $('#message');
+    var eventSourcee = new EventSource('//localhost:3000/time');
+    eventSourcee.addEventListener( 'open', function () {
+        //console.log('链接已经建立');
+    }, false );
+    eventSourcee.addEventListener( 'message', function (e) {
+        var data = JSON.parse(e.data);
+        $ul.append($('<li>'+  data.now.dateInfo('Y-M-D h:m:s') +'</li>'))
+    }, false );
+    eventSourcee.addEventListener( 'error', function () {
+        //console.log('链接出错');
+    }, false );
+</script>
+</body>
+</html>
