@@ -1,5 +1,5 @@
 {
-  "name": "untitled",
+  "name": "express",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,11 +12,13 @@
     "debug": "~2.2.0",
     "ejs": "^2.4.2",
     "express": "~4.13.4",
+    "ioredis": "^2.2.0",
     "jade": "~1.11.0",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
     "mongoose": "^4.5.2",
     "morgan": "~1.7.0",
+    "sequelize": "^3.23.4",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.6"
   }
