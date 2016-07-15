@@ -29,7 +29,7 @@ module.exports = function (req, res, next) {
    /* res.locals.messages = req.session.messages || [];
     res.locals.removeMessages = function () {
         req.session.message = [];
-    };
-    next();*/
+    };*/
+    next();
 };
 
