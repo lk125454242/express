@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <script src="javascripts/jquery.min.js"></script>
+</head>
+<body>
+    <h1>登录</h1>
+    <form action="/users/login" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input id="username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input id="password" type="text" name="password" placeholder="请输入密码" required value="1">
+        </div>
+        <input type="submit" value="提交">
+    </form>
+    <h1>登出</h1>
+    <form action="/users/quit" method="post">
+        <input type="submit" value="提交">
+    </form>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,36 +1,29 @@
 /**
  * Created by Administrator on 2016/6/28.
  */
+var crypto = require('crypto');
+require('../mongodb/modules');
+var User = mongoose.model('Users');
+var cookieParse = require('cookie-parser');
 
 //检测cookie
-exports.character = function (prop,msg) {
+exports.cookie_auth = function (prop,msg) {
     return function (req, res, next) {
-        var value = req.body[prop];
-        if (/\W/.test(value) || /_/.test(value)) {
-            res.error(msg + '不能包含特殊字符');
-        }else {
-            next();
-        }
+        console.log(req);
+        next();
     }
 };
 //检测session
-exports.equal = function (prop,msg) {
+exports.session_auth = function (prop,msg) {
     return function (req, res, next) {
-        var body = req.body;
-        if (body[prop][0] === body[prop][1]) {
-            next();
-        }else {
-            res.error(msg + '两次输入不一致');
-        }
+        console.log(req);
+        next();
     }
 };
 //检测权限
-exports.required = function (prop,msg) {
+exports.level_auth = function (prop,msg) {
     return function (req, res, next) {
-        if (/\S/.test(req.body[prop])) {
-            next();
-        }else {
-            res.error(msg + '不能为空');
-        }
+        console.log(req);
+        next();
     }
 };
