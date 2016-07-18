@@ -2,7 +2,6 @@
  * Created by Administrator on 2016/6/27.
  */
 var mongoose = require('mongoose');
-var path = require('path');
 var _ = require('lodash');
 var Schema = mongoose.Schema;
 var user = {
@@ -24,11 +23,11 @@ var user = {
     },
     email:{
         type:String,
-        default:path.join(__dirname, '../../public/images', 'head.png')
+        default:''
     },
     head:{
         type:String,
-        default:''
+        default:'/images/head.png'
     },
     sex:Boolean,
     phone:Number,
