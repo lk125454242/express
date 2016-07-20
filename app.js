@@ -11,6 +11,10 @@ mongoose.connect(require('./link/database').mongo);//创建一个数据库连接
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'连接错误:'));
 db.once('open',console.log.bind(console,'连接成功'));
+
+/*安装 mongoDB 中的所有modul  Schema*/
+require('./mongodb/modules');
+
 /*路由*/
 var routes = require('./routes/index');
 var users = require('./routes/users');

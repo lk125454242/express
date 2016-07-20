@@ -6,12 +6,14 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var router = express.Router();
 
-/*安装 mongoDB 中的所有modul  Schema*/
-require('../mongodb/modules');
 var User = mongoose.model('Users');
+router.use('/',function (req, res, next) {
+    
+});
 router.get('/', function(req, res, next) {
     res.render('index', { title: '用户中心' });
 });
+/* 获取 全部用户 */
 router.get('/getUser',
     function (req, res) {
         User.find({},function (err, users) {
@@ -26,6 +28,7 @@ router.get('/getUser',
         });
     }
 );
+/* 删除 用户 */
 router.post('/deleteUser',
     function (req, res) {
         var param = req.body;

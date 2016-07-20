@@ -47,7 +47,9 @@ exports.noBlank = function (prop,msg) {
 //检测长度
 exports.length = function (prop, min, max ,msg) {
     return function (req, res, next) {
-        var length = req.body[prop].length;
+        var value = req.body[prop];
+        if(typeof value !== 'string') value = value[0];
+        var length = value.length;
         if (max && length > max) {
             res.error(msg + '长度不能超过' + max + '位');
         } else if (min && length < min) {

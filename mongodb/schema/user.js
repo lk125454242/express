@@ -36,6 +36,10 @@ var user = {
             type:Number,
             default:Date.now()
         }
+    },
+    root:{
+        type:Number,
+        default:0
     }
 };
 var userSchema = new Schema(user);

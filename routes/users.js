@@ -4,12 +4,12 @@ var router = express.Router();
 var validate = require('../validate/verification');
 var qs = require('querystring');
 
-var secret = require('../config/secret');//获取全局配置文件
+var secret = require('../config/secret');//获取全局加密文件
 
-/*安装 mongoDB 中的所有modul  Schema*/
+var auth = require('../validate/auth');//权限验证
+
+/*加载 mongoDB 中的所有modul  Schema*/
 require('../mongodb/modules');
-var User = mongoose.model('Users');
-
 /* 注册账户 */
 router.post('/register',
     validate.required('username', '用户名'),//检测必填
@@ -17,8 +17,8 @@ router.post('/register',
     validate.character('username', '用户名'),//检测特殊字符
     validate.containWord('username', '用户名'),//检测字母
     validate.containNumber('username', '用户名'),//检测数字
-    validate.length('password', '密码'),//检测长度
-    validate.length('password', '密码'),//检测两次是否一致
+    validate.length('password', 6, 12, '密码'),//检测长度
+    validate.equal('password', '密码'),//检测两次是否一致
     function (req, res, next) {
         var param = req.body;
         User.find({username: param.username}, function (err, users) {
@@ -51,7 +51,7 @@ router.post('/login',
     validate.character('username', '用户名'),//检测特殊字符
     validate.containWord('username', '用户名'),//检测字母
     validate.containNumber('username', '用户名'),//检测数字
-    validate.length('password', '密码'),//检测长度
+    validate.length('password', 6, 12, '密码'),//检测长度
     function (req, res, next) {
         var param = req.body;
         User.findOne({username: param.username}, {}, function (err, user) {
@@ -61,8 +61,7 @@ router.post('/login',
                 if (user) {
                     if (user.password === req.body.password) {
                         var cookie = secret.cipher(qs.stringify({
-                            username: user.username,
-                            password: user.password
+                            u: user.username
                         }));
                         var info = qs.stringify({
                             email:user.email,
@@ -70,7 +69,7 @@ router.post('/login',
                             nickname:user.nickname,
                             head:user.head
                         });
-                        console.log(user);
+                        info += 'usd%3D' + user._id;//mongodb中的_id不知道为何 不能直接写入
                         res.cookie('i',cookie,{
                             maxAge: 14400000, //4个小时
                             httpOnly: true, //浏览器禁止访问
@@ -105,14 +104,17 @@ router.post('/quit',
         });
     }
 );
-/* 用户登录 */
+router.use('/',auth.cookie_auth);//验证权限
+router.use('/',auth.session_auth);//验证权限
+
+/* 用户修改资料 */
 router.post('/update',
     validate.required('username', '用户名'),//检测必填
     validate.length('username', 6, 12, '用户名'),//检测长度
     validate.character('username', '用户名'),//检测特殊字符
     validate.containWord('username', '用户名'),//检测字母
     validate.containNumber('username', '用户名'),//检测数字
-    validate.length('password', '密码'),//检测长度
+    validate.length('password', 6 , 12, '密码'),//检测长度
     validate.equal('password', '密码'),//检测两次是否一致
     function (req, res, next) {
         var param = req.body;
