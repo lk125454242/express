@@ -5,13 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-/*mongoDB*/
-mongoose.connect(require('./link/database').mongo);//创建一个数据库连接
-var db = mongoose.connection;
-db.on('error',console.error.bind(console,'连接错误:'));
-db.once('open',console.log.bind(console,'连接成功'));
 
+/* 启动所有服务链接 */
+require('./config/server');
 /*安装 mongoDB 中的所有modul  Schema*/
 require('./mongodb/modules');
 
