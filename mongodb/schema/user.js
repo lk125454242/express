@@ -29,8 +29,13 @@ var user = {
         type:String,
         default:'/images/head.png'
     },
-    sex:Boolean,
+    position:String,
+    sex:{
+        type:Number,
+        default:0
+    },//性别 1男 2女 0未知
     phone:Number,
+    wx_id:String,
     last_login:{
         time:{
             type:Number,

@@ -10,6 +10,7 @@ var auth = require('../validate/auth');//权限验证
 
 /*加载 mongoDB 中的所有modul  Schema*/
 require('../mongodb/modules');
+
 /* 注册账户 */
 router.post('/register',
     validate.required('username', '用户名'),//检测必填
@@ -28,6 +29,41 @@ router.post('/register',
                 var newUser = new User({
                     username: param.username,
                     password: param.password[0]
+                });
+                newUser.save(function (err, newUser) {
+                    if (err) {
+                        res.error(JSON.stringify(err));
+                    } else {
+                        res.success({
+                            code: 200,
+                            account: req.body.username,
+                            body: req.body
+                        });
+                    }
+                })
+            }
+        });
+    }
+);
+/* 第三方注册账户 */
+router.post('/wx_register',
+    validate.required('wx_id', 'ID'),//检测必填
+    validate.required('nickname', '昵称'),//检测必填
+    validate.required('sex', '性别'),//检测必填
+    function (req, res, next) {
+        console.log(req);
+        var param = req.body;
+        console.log(param);
+        User.find({wx_id: param.wx_id}, function (err, users) {
+            if (users.length) {
+                res.error(param.username + '已经被注册，请修改账户名');
+            } else {
+                var newUser = new User({
+                    wx_id : param.openid,//当前用户唯一标识
+                    nickname : param.nickname,
+                    sex : param.sex,//性别 1男 2女 0未知
+                    head : param.head,//头像
+                    position : pos
                 });
                 newUser.save(function (err, newUser) {
                     if (err) {
