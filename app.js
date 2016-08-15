@@ -18,6 +18,8 @@ var root = require('./routes/root');
 
 /*扩展*/
 var extendRes = require('./extend/res');
+
+var key = require('./config/config').secret;//获取密码
 /*应用*/
 var app = express();
 //解决跨域问题
@@ -25,13 +27,13 @@ app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "content-type");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By",' 3.2.1');
-  res.header("Content-Type", "application/json;charset=utf-8");
+  //res.header("X-Powered-By",' 3.2.1');
+  //res.header("Content-Type", "application/json;charset=utf-8");
   next();
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));

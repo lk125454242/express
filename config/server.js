@@ -13,3 +13,4 @@ db.once('open',console.log.bind(console,'连接成功'));
 
 /* redis */
 var Redis = new ioredis(6379);
+exports.Redis = Redis;

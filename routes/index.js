@@ -2,9 +2,8 @@ var express = require('express');
 var moment = require('moment');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.redirect('/register.html');
 });
 
 var tt = 0;
@@ -13,10 +12,6 @@ router.get('/time', function(req, res, next) {
   res.write("data: {\"now\":"+Date.now()+"}\r\n\r\n");
   res.end();
 });
-
-
-
-
 
 module.exports = router;
 

@@ -7,9 +7,6 @@ var _ = require('lodash');
 var router = express.Router();
 
 var User = mongoose.model('Users');
-router.use('/',function (req, res, next) {
-    
-});
 router.get('/', function(req, res, next) {
     res.render('index', { title: '用户中心' });
 });

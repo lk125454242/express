@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "body-parser": "~1.15.1",
+    "cookie": "^0.3.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "^2.4.2",
     "express": "~4.13.4",
     "forever-monitor": "^1.7.0",
+    "hbs": "^4.0.0",
     "ioredis": "^2.2.0",
     "jade": "~1.11.0",
     "lodash": "^4.13.1",
