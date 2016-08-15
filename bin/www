@@ -24,8 +24,9 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+/*
 
-/* socket 服务器 */
+/!* socket 服务器 *!/
 var server_io = io(server);
 var numUsers = 0;
 server_io.on('connection', function (socket) {
@@ -84,6 +85,7 @@ server_io.on('connection', function (socket) {
     }
   });
 });
+*/
 
 
 /**

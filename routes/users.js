@@ -104,6 +104,7 @@ router.post('/login',
                         var cookie = secret.cipher(qs.stringify({
                             u: user.username
                         }));
+                        console.log(req.originalUrl);
                         var now = Date.now();
                         res.cookie('i', cookie, {
                             maxAge: 14400000, //4个小时
@@ -117,7 +118,7 @@ router.post('/login',
                             head: user.head,
                             usd: '' + user._id,
                             tmp: now
-                        }, {
+                        },{
                             maxAge: 14400000, //4个小时
                             httpOnly: false, //浏览器可以访问
                             path: '/', //此域名下全部可使用
