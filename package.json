@@ -7,7 +7,7 @@
     "debug": "node-dev --debug ./bin/www",
     "run": "forever start ./bin/www",
     "stop": "forever stop ./bin/www",
-    "pro": "forever start -l forever.log -o out.log -e err.log app.js"
+    "pro": "forever start -a -l /home/service/log/forever.log -o /home/service/log/out.log -e /home/service/log/err.log ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.1",

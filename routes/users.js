@@ -4,10 +4,10 @@ var router = express.Router();
 var validate = require('../validate/verification');
 var qs = require('querystring');
 var cookieParser = require('cookie-parser');
-var Cookie = require('cookie');
 
 var Redis = require('../config/server').Redis;
 
+var key = require('../config/config').secret;//获取全局配置密码
 var secret = require('../config/secret');//获取全局加密文件
 
 var auth = require('../validate/auth');//权限验证
@@ -16,6 +16,7 @@ var auth = require('../validate/auth');//权限验证
 require('../mongodb/modules');
 
 var User = mongoose.model('Users');
+router.all('*',auth.cookie_times);
 /* 注册账户 */
 router.post('/register',
     validate.required('username', '用户名'),//检测必填
@@ -104,7 +105,6 @@ router.post('/login',
                         var cookie = secret.cipher(qs.stringify({
                             u: user.username
                         }));
-                        console.log(req.originalUrl);
                         var now = Date.now();
                         res.cookie('i', cookie, {
                             maxAge: 14400000, //4个小时

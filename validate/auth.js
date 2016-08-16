@@ -29,6 +29,28 @@ var efficacy = function (req, res ,fn) {//登录验证通过
     }
     return false;
 };
+var first_upper = function ( string ) {
+    return string.replace(/\/(\w)/g,function(s){return s.slice(1).toUpperCase()})
+};
+//检测 请求时间
+exports.cookie_times = function (req, res, next) {
+    var cookies = req.cookies,number = 1,originalUrl = first_upper(req.originalUrl);
+    if(cookies){
+        console.log('times');
+        number = ( Number( req.cookies[originalUrl] ) + 1) || 1 ;
+    }
+    if(number > 5){
+        res.error('操作过于频繁,封停5分钟');
+        return false;
+    }
+    res.cookie(originalUrl, number, {
+        maxAge: 300000, //5分钟
+        httpOnly: true, //浏览器禁止访问
+        path: '/', //此域名下全部可使用
+        secure: false//不需要使用https请求
+    });
+    next();
+};
 //检测cookie
 exports.cookie_auth = function (req, res, next) {
     efficacy(req,res,function () {
