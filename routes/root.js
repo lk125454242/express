@@ -5,8 +5,10 @@ var express = require('express');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var router = express.Router();
+var auth = require('../validate/auth');
 
 var User = mongoose.model('Users');
+router.all('*',auth.level_auth);
 router.get('/', function(req, res, next) {
     res.render('index', { title: '用户中心' });
 });

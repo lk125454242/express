@@ -152,7 +152,6 @@ router.post('/quit',
     }
 );
 router.use('/', auth.cookie_auth);//验证权限
-router.use('/', auth.session_auth);//验证权限
 
 /* 用户修改资料 */
 router.post('/update',
