@@ -61,8 +61,6 @@ router.post('/wx_register',
         var param = req.body;
         User.find({wx_id: param.wx_id}, function (err, users) {
             if (users.length) {
-                param.username = 'lk125454242';
-                param.password = '111111';
                 User.update({_id: users._id}, {$set: param}, function (err, user) {
                     if (err) {
                         res.error(JSON.stringify(err));
