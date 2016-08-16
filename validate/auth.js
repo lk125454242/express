@@ -6,8 +6,36 @@ var mongoose = require('mongoose');
 var User = mongoose.model('Users');//获取user模版
 var tools = require('../tool_fn/base');//获取工具函数库
 var Redis = require('../config/server').Redis;//获取redis服务器
-
 var secret = require('../config/secret');//获取全局加密文件
+
+exports.setCookie = function (req, res, user) {
+    var cookie = secret.cipher(qs.stringify({
+        u: user.username
+    }));
+    var now = Date.now();
+    res.cookie('i', cookie, {
+        maxAge: 14400000, //4个小时
+        httpOnly: true, //浏览器禁止访问
+        path: '/', //此域名下全部可使用
+        secure: false//不需要使用https请求
+    }).cookie('Auth', {
+        email: user.email,
+        birthday: user.birthday,
+        nickname: user.nickname,
+        head: user.head,
+        usd: '' + user._id,
+        tmp: now
+    }, {
+        maxAge: 14400000, //4个小时
+        httpOnly: false, //浏览器可以访问
+        path: '/', //此域名下全部可使用
+        secure: false//不需要使用https请求
+    }).success({
+        code: 200,
+        message: '登陆成功'
+    });
+    Redis.set(user._id, now);//写入redis缓存池
+};
 
 //检测 请求时间
 exports.cookie_times = function (req, res, next) {
@@ -48,13 +76,18 @@ exports.cookie_auth = function (req, res, next) {//校验cookie的正确性
 };
 //检测权限
 exports.level_auth = function (req, res, next) {
-    var cookies = req.cookies,
-        account = cookies.i;
-    account = qs.parse(secret.decipher(account));
-    console.log(account);
-    if(account && account.u === 'lk125454242'){
-        next();
+    var cookies = req.cookies;
+    console.log('level_auth');
+    if(cookies){
+        var account = cookies.i;
+        account = qs.parse(secret.decipher(account));
+        console.log(account);
+        if(account && account.u === 'lk125454242'){
+            next();
+        }else {
+            res.error('当前用户权限不足');
+        }
     }else {
-        res.error('当前用户权限不足');
+        res.error('请登录');
     }
 };

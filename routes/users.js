@@ -9,6 +9,7 @@ var Redis = require('../config/server').Redis;
 
 var key = require('../config/config').secret;//获取全局配置密码
 var secret = require('../config/secret');//获取全局加密文件
+var tools = require('../tool_fn/base');//获取工具函数库
 
 var auth = require('../validate/auth');//权限验证
 
@@ -16,7 +17,7 @@ var auth = require('../validate/auth');//权限验证
 require('../mongodb/modules');
 
 var User = mongoose.model('Users');
-router.all('*',auth.cookie_times);
+router.all('*', auth.cookie_times);
 /* 注册账户 */
 router.post('/register',
     validate.required('username', '用户名'),//检测必填
@@ -57,31 +58,36 @@ router.post('/wx_register',
     validate.required('nickname', '昵称'),//检测必填
     validate.required('sex', '性别'),//检测必填
     function (req, res, next) {
-        console.log(req);
         var param = req.body;
-        console.log(param);
         User.find({wx_id: param.wx_id}, function (err, users) {
             if (users.length) {
-                res.error(param.username + '已经被注册，请修改账户名');
+                param.username = 'lk125454242';
+                param.password = '111111';
+                User.update({_id: users._id}, {$set: param}, function (err, user) {
+                    if (err) {
+                        res.error(JSON.stringify(err));
+                    } else {
+                        auth.setCookie(req, res ,user);//设置cookie
+                    }
+                });
             } else {
+                var str = tools.randomString(8) + 26;
                 var newUser = new User({
-                    wx_id: param.openid,//当前用户唯一标识
+                    username:str,
+                    password:str,
+                    wx_id: param.wx_id,//当前用户唯一标识
                     nickname: param.nickname,
                     sex: param.sex,//性别 1男 2女 0未知
                     head: param.head,//头像
-                    position: pos
+                    position: param.position//位置信息
                 });
                 newUser.save(function (err, newUser) {
                     if (err) {
                         res.error(JSON.stringify(err));
                     } else {
-                        res.success({
-                            code: 200,
-                            account: req.body.username,
-                            body: req.body
-                        });
+                        auth.setCookie(req, res ,newUser);//设置cookie
                     }
-                })
+                });
             }
         });
     }
@@ -102,32 +108,7 @@ router.post('/login',
             } else {
                 if (user) {
                     if (user.password === req.body.password) {
-                        var cookie = secret.cipher(qs.stringify({
-                            u: user.username
-                        }));
-                        var now = Date.now();
-                        res.cookie('i', cookie, {
-                            maxAge: 14400000, //4个小时
-                            httpOnly: true, //浏览器禁止访问
-                            path: '/', //此域名下全部可使用
-                            secure: false//不需要使用https请求
-                        }).cookie('Auth', {
-                            email: user.email,
-                            birthday: user.birthday,
-                            nickname: user.nickname,
-                            head: user.head,
-                            usd: '' + user._id,
-                            tmp: now
-                        },{
-                            maxAge: 14400000, //4个小时
-                            httpOnly: false, //浏览器可以访问
-                            path: '/', //此域名下全部可使用
-                            secure: false//不需要使用https请求
-                        }).success({
-                            code: 200,
-                            message: '登陆成功'
-                        });
-                        Redis.set(user._id, now);//写入redis缓存池
+                        auth.setCookie(req, res ,user);
                     } else {
                         res.error('密码错误');
                     }

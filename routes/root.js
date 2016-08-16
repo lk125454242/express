@@ -8,14 +8,16 @@ var router = express.Router();
 var auth = require('../validate/auth');
 
 var User = mongoose.model('Users');
-router.all('*',auth.level_auth);
+router.all('*',auth.cookie_auth,auth.level_auth);
 router.get('/', function(req, res, next) {
     res.render('index', { title: '用户中心' });
 });
 /* 获取 全部用户 */
 router.get('/getUser',
     function (req, res) {
+        console.log('???');
         User.find({},function (err, users) {
+            console.log(users);
             if(users.length){
                 res.success({
                     code:200,
