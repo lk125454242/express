@@ -1,7 +1,8 @@
 var express = require('express');
 var moment = require('moment');
 var router = express.Router();
-var List = require('../validate/list');
+var mongoose = require('mongoose');
+var List = mongoose.model('List');
 
 router.get('/', function(req, res, next) {
   res.redirect('/register.html');
@@ -20,7 +21,13 @@ router.search('/search', function (req, res) {
   });
 });
 router.get('/getList',function (req, res) {
-
+  List.find({},function (err, lists) {
+    res.success({
+      code: 200,
+      data:lists,
+      message: '成功'
+    });
+  })
 });
 module.exports = router;
 

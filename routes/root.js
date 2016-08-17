@@ -37,7 +37,7 @@ router.get('/getUser',
     }
 );
 /* 删除 用户 */
-router.post('/deleteUser',
+router.delete('/deleteUser',
     function (req, res) {
         var param = req.body;
         User.remove({_id: param.id}, function (err, users) {
@@ -54,9 +54,15 @@ router.post('/deleteUser',
 );
 router.delete('/deleteList',
     function (req, res) {
-        res.success({
-            code: 200,
-            message: '删除'
+        List.findByIdAndRemove(req.body.id, function (err) {
+            if(err){
+                res.error('删除失败');
+            }else {
+                res.success({
+                    code: 200,
+                    message: '删除成功'
+                });
+            }
         });
     });
 router.post('/addList',
@@ -65,11 +71,10 @@ router.post('/addList',
     function (req, res) {
         var param = req.body;
         param.timestamp = Date.now();
-        param.url = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
+        param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
         var newList = new List(param);
         newList.save((err,newList)=>{
             if(err){
-                console.log(err);
                 res.error('添加新链接失败');
             }else {
                 res.success({
@@ -81,11 +86,23 @@ router.post('/addList',
         });
     });
 router.post('/updateList',
+    public_up.single('img'),
     list.validate_list,
     function (req, res) {
-        res.success({
-            code: 200,
-            message: '更新'
+        var param = req.body;
+        var id = param.id;
+        delete param.id;
+        param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
+        List.findByIdAndUpdate(id, { $set: param }, function (err , list) {
+            if(err){
+                res.error('修改失败');
+            }else {
+                res.success({
+                    code: 200,
+                    data:list,
+                    message: '修改成功'
+                });
+            }
         });
     });
 module.exports = router;

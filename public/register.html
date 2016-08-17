@@ -56,6 +56,45 @@
     </ul>
 </details>
 
+
+<script>
+    var Url = location.origin;
+    var ul = $('#ul');
+    var count = $('#count');
+    $('#get').click(function () {
+        $.ajax({
+            url: Url + '/lyk/getUser',
+            dataType: 'json',
+            success: function (json) {
+                var html = '';
+                $.each(json.users, function () {
+                    html += '<li>' + JSON.stringify(this) + '' +
+                            '<a href="javascript:void 0;" data-id="' + this._id + '">delete</a>' +
+                            '</li>';
+                });
+                count.html(json.users.length);
+                ul.html(html);
+            }
+        });
+    });
+    ul.on('click', 'a', function (e) {
+        e = e || window.e;
+        var target = e.target || e.srcElement;
+        var id = $(target).data('id');
+        $.ajax({
+            url: Url + '/lyk/deleteUser',
+            dataType: 'json',
+            type: 'delete',
+            data: {
+                id: id
+            },
+            success: function (json) {
+                alert(json.message);
+            }
+        });
+    })
+</script>
+
 <details>
     <summary>更新</summary>
     <form action="/users/update" method="post">
@@ -136,43 +175,7 @@
     <br/>
     <a id="submit_upload" href="javascripts:void 0;">提交</a>
 </details>
-<script>
-    var Url = location.origin;
-    var ul = $('#ul');
-    var count = $('#count');
-    $('#get').click(function () {
-        $.ajax({
-            url: Url + '/lyk/getUser',
-            dataType: 'json',
-            success: function (json) {
-                var html = '';
-                $.each(json.users, function () {
-                    html += '<li>' + JSON.stringify(this) + '' +
-                            '<a href="javascript:void 0;" data-id="' + this._id + '">delete</a>' +
-                            '</li>';
-                });
-                count.html(json.users.length);
-                ul.html(html);
-            }
-        });
-    });
-    ul.on('click', 'a', function (e) {
-        e = e || window.e;
-        var target = e.target || e.srcElement;
-        var id = $(target).data('id');
-        $.ajax({
-            url: Url + '/lyk/deleteUser',
-            dataType: 'json',
-            type: 'post',
-            data: {
-                id: id
-            },
-            success: function (json) {
-                alert(json.message);
-            }
-        });
-    })
-</script>
+
 <script>
     var upload = {
         url: Url + '/lyk/addList',
@@ -217,7 +220,7 @@
             if (this.status == 200 && this.readyState == 4) {
                 console.log(this.responseText)
                 var json = JSON.parse(this.responseText);
-                $('#link_img').attr('src',json.data.url);
+                $('#link_img').attr('src',json.data.img);
             }
         },
         uploadProgress: function (evt) {
@@ -243,5 +246,141 @@
     };
     upload.init();
 </script>
+
+<details>
+    <summary>获取数据</summary>
+    <ul id="list_ul">
+
+    </ul>
+    <a id="get_list" href="javascripts:void 0;">获取数据</a>
+</details>
+
+<script>
+    var ul = $('#list_ul');
+    $('#get_list').click(function () {
+        $.ajax({
+            url: Url + '/getList',
+            dataType: 'json',
+            type:'get',
+            success: function (json) {
+                var html = '';
+                $.each(json.data, function () {
+                    html += '<li>' + JSON.stringify(this) + '' +
+                            '<a href="javascript:void 0;" data-id="' + this._id + '">delete</a>' +
+                            '</li>';
+                });
+                ul.html(html);
+            }
+        });
+    });
+    ul.on('click', 'a', function (e) {
+        e = e || window.e;
+        var target = e.target || e.srcElement;
+        var id = $(target).data('id');
+        $.ajax({
+            url: Url + '/lyk/deleteList',
+            dataType: 'json',
+            type: 'delete',
+            data: {
+                id: id
+            },
+            success: function (json) {
+                console.log(json.message);
+            }
+        });
+    })
+</script>
+
+<details>
+    <summary>修改链接</summary>
+    <div id="update_link">
+        <input id="mg_id" type="text" placeholder="id" value="57b4221ceaea9afc1fbf8b5b">
+        <input id="update_link_title" type="text" name="title" placeholder="名称" value="异步流程控制">
+        <br/>
+        <input id="update_link_classify" type="text" name="classify" placeholder="分类,多个请用空格分隔" value="promise generator async">
+        <br/>
+        <input id="update_link_url" type="text" name="url" placeholder="链接地址"
+               value="https://github.com/i5ting/asynchronous-flow-control">
+        <br/>
+        <img id="update_link_img" src="" alt="">
+    </div>
+    <input id="update_upload" type="file" name="img" placeholder="图片" multiple="multiple">
+    <br/>
+    <a id="update_submit_upload" href="javascripts:void 0;">提交</a>
+</details>
+
+<script>
+    var update = {
+        url: Url + '/lyk/updateList',
+        init: function () {
+            this.mg_id = $('#mg_id');
+            this.files = $('#update_upload');
+            this.link_img = $('#update_link_img');
+            this.link_title = $('#update_link_title');
+            this.link_classify = $('#update_link_classify');
+            this.link_url = $('#update_link_url');
+            this.submit_upload = $('#update_submit_upload');
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.files.on('change', function () {
+                update.uploadFile();
+            });
+        },
+        uploadFile: function () {
+            var file = this.files[0].files[0];
+            if (file && /image/.test(file.type)) {
+                var windowUrl = window.URL || window.webkitURL;
+                this.link_img.attr('src', windowUrl.createObjectURL(file));//仿造 本地src
+
+                var fd = new FormData();
+                fd.append('id', this.mg_id.val());
+                fd.append('classify', this.link_classify.val().split(' '));
+                fd.append('title', this.link_title.val());
+                fd.append('url', this.link_url.val());
+                fd.append("img", file);
+
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", update.uploadProgress, false);
+                xhr.addEventListener("load", update.uploadComplete, false);
+                xhr.addEventListener("error", update.uploadFailed, false);
+                xhr.addEventListener("abort", update.uploadCanceled, false);
+                xhr.addEventListener("readystatechange", update.uploadState.bind(xhr), false);
+                xhr.open('POST', this.url, true);
+                xhr.send(fd);
+            }
+        },
+        uploadState: function (e) {
+            console.log(this);
+            if (this.status == 200 && this.readyState == 4) {
+                console.log(this.responseText);
+                var json = JSON.parse(this.responseText);
+                $('#link_img').attr('src',json.data.img);
+            }
+        },
+        uploadProgress: function (evt) {
+            var that = update;
+            if (evt.lengthComputable) {
+                var percentComplete = Math.floor(evt.loaded * 100 / evt.total);
+                percentComplete > that.num ? that.num = percentComplete : '';
+            }
+            else {
+                console.log('上传完成');
+            }
+        },
+        uploadComplete: function (evt) {//上传完成
+            console.log('上传完成');
+        },
+        uploadFailed: function (evt) {//上传失败
+            console.log('上传失败');
+            console.log(evt);
+        },
+        uploadCanceled: function (evt) {//上传取消
+            console.log('上传取消')
+        }
+    };
+    update.init();
+</script>
+
 </body>
 </html>
