@@ -41,8 +41,8 @@ app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());//解析json
+app.use(bodyParser.urlencoded({extended: false}));//解析urlcode
 app.use(cookieParser(key));
 app.use(session({
     /*key:'Auth',//储存的cookie 默认为 connect.sid */

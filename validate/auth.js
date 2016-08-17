@@ -77,11 +77,9 @@ exports.cookie_auth = function (req, res, next) {//校验cookie的正确性
 //检测权限
 exports.level_auth = function (req, res, next) {
     var cookies = req.cookies;
-    console.log('level_auth');
     if(cookies){
         var account = cookies.i;
         account = qs.parse(secret.decipher(account));
-        console.log(account);
         if(account && account.u === 'lk125454242'){
             next();
         }else {

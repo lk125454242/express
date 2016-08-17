@@ -6,132 +6,149 @@
     <script src="javascripts/jquery.min.js"></script>
 </head>
 <body>
-    <details>
-        <summary>注册</summary>
-        <form action="/users/register" method="post">
-            <div>
-                <label for="username">用户名</label>
-                <input id="username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
-            </div>
-            <div>
-                <label for="password">密码</label>
-                <input id="password" type="text" name="password" placeholder="请输入密码" required value="1">
-            </div>
-            <div>
-                <label for="repeat_password">确认密码</label>
-                <input id="repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
-            </div>
-            <!-- <div>
-                 <label for="nickname">昵称</label>
-                 <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
-             </div>
-             <div>
-                 <label for="phone">手机号</label>
-                 <input id="phone" type="number" name="phone" placeholder="请输入手机号">
-             </div>
-             <div>
-                 <label for="email">Email</label>
-                 <input id="email" type="number" name="email" placeholder="请输入Email">
-             </div>
-             <div>
-                 <label for="head">上传头像</label>
-                 <input id="head" type="file" name="head" placeholder="请重新手机号">
-             </div>
-             <div>
-                 <label for="email">性别</label>
-                 <label for="man">男</label>
-                 <input id="man" type="radio" name="sex" placeholder="男" checked>
-                 <label for="woman">女</label>
-                 <input id="woman" type="radio" name="sex" placeholder="女">
-             </div>-->
-            <input type="submit" value="注册">
-        </form>
-    </details>
+<details>
+    <summary>注册</summary>
+    <form action="/users/register" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input id="username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input id="password" type="text" name="password" placeholder="请输入密码" required value="1">
+        </div>
+        <div>
+            <label for="repeat_password">确认密码</label>
+            <input id="repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
+        </div>
+        <!-- <div>
+             <label for="nickname">昵称</label>
+             <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
+         </div>
+         <div>
+             <label for="phone">手机号</label>
+             <input id="phone" type="number" name="phone" placeholder="请输入手机号">
+         </div>
+         <div>
+             <label for="email">Email</label>
+             <input id="email" type="number" name="email" placeholder="请输入Email">
+         </div>
+         <div>
+             <label for="head">上传头像</label>
+             <input id="head" type="file" name="head" placeholder="请重新手机号">
+         </div>
+         <div>
+             <label for="email">性别</label>
+             <label for="man">男</label>
+             <input id="man" type="radio" name="sex" placeholder="男" checked>
+             <label for="woman">女</label>
+             <input id="woman" type="radio" name="sex" placeholder="女">
+         </div>-->
+        <input type="submit" value="注册">
+    </form>
+</details>
 
-    <details>
-        <summary>获取全部用户</summary>
-        <span id="count"></span>
-        <button type="button" id="get">获取全部用户</button>
-        <ul id="ul">
-        </ul>
-    </details>
+<details>
+    <summary>获取全部用户</summary>
+    <span id="count"></span>
+    <button type="button" id="get">获取全部用户</button>
+    <ul id="ul">
+    </ul>
+</details>
 
-    <details>
-        <summary>更新</summary>
-        <form action="/users/update" method="post">
-            <div>
-                <label for="username">用户名</label>
-                <input id="update_username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
-            </div>
-            <div>
-                <label for="password">密码</label>
-                <input id="update_password" type="text" name="password" placeholder="请输入密码" required value="1">
-            </div>
-            <div>
-                <label for="repeat_password">确认密码</label>
-                <input id="update_repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
-            </div>
-            <!-- <div>
-                 <label for="nickname">昵称</label>
-                 <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
-             </div>
-             <div>
-                 <label for="phone">手机号</label>
-                 <input id="phone" type="number" name="phone" placeholder="请输入手机号">
-             </div>
-             <div>
-                 <label for="email">Email</label>
-                 <input id="email" type="number" name="email" placeholder="请输入Email">
-             </div>
-             <div>
-                 <label for="head">上传头像</label>
-                 <input id="head" type="file" name="head" placeholder="请重新手机号">
-             </div>
-             <div>
-                 <label for="email">性别</label>
-                 <label for="man">男</label>
-                 <input id="man" type="radio" name="sex" placeholder="男" checked>
-                 <label for="woman">女</label>
-                 <input id="woman" type="radio" name="sex" placeholder="女">
-             </div>-->
-            <input type="submit" value="修改">
-        </form>
-    </details>
+<details>
+    <summary>更新</summary>
+    <form action="/users/update" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input id="update_username" type="text" name="username" placeholder="请输入用户名" required value="1"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input id="update_password" type="text" name="password" placeholder="请输入密码" required value="1">
+        </div>
+        <div>
+            <label for="repeat_password">确认密码</label>
+            <input id="update_repeat_password" type="text" name="password" placeholder="请重新输入密码" required value="1">
+        </div>
+        <!-- <div>
+             <label for="nickname">昵称</label>
+             <input id="nickname" type="text" name="nickname" placeholder="请输入昵称"/>
+         </div>
+         <div>
+             <label for="phone">手机号</label>
+             <input id="phone" type="number" name="phone" placeholder="请输入手机号">
+         </div>
+         <div>
+             <label for="email">Email</label>
+             <input id="email" type="number" name="email" placeholder="请输入Email">
+         </div>
+         <div>
+             <label for="head">上传头像</label>
+             <input id="head" type="file" name="head" placeholder="请重新手机号">
+         </div>
+         <div>
+             <label for="email">性别</label>
+             <label for="man">男</label>
+             <input id="man" type="radio" name="sex" placeholder="男" checked>
+             <label for="woman">女</label>
+             <input id="woman" type="radio" name="sex" placeholder="女">
+         </div>-->
+        <input type="submit" value="修改">
+    </form>
+</details>
 
-    <details>
-        <summary>登录</summary>
-        <form action="/users/login" method="post">
-            <div>
-                <label for="username">用户名</label>
-                <input type="text" name="username" placeholder="请输入用户名" required value="l1111111"/>
-            </div>
-            <div>
-                <label for="password">密码</label>
-                <input type="text" name="password" placeholder="请输入密码" required value="1111111">
-            </div>
-            <input type="submit" value="登录">
-        </form>
-    </details>
+<details>
+    <summary>登录</summary>
+    <form action="/users/login" method="post">
+        <div>
+            <label for="username">用户名</label>
+            <input type="text" name="username" placeholder="请输入用户名" required value="l1111111"/>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input type="text" name="password" placeholder="请输入密码" required value="1111111">
+        </div>
+        <input type="submit" value="登录">
+    </form>
+</details>
 
-    <details>
-        <summary>登出</summary>
-        <form action="/users/quit" method="post">
-            <input type="submit" value="登出">
-        </form>
-    </details>
+<details>
+    <summary>登出</summary>
+    <form action="/users/quit" method="post">
+        <input type="submit" value="登出">
+    </form>
+</details>
+
+<details>
+    <summary>添加链接</summary>
+    <div id="link">
+        <input id="link_title" type="text" name="title" placeholder="名称" value="异步流程控制">
+        <br/>
+        <input id="link_classify" type="text" name="classify" placeholder="分类,多个请用空格分隔" value="promise generator async">
+        <br/>
+        <input id="link_url" type="text" name="url" placeholder="链接地址"
+               value="https://github.com/i5ting/asynchronous-flow-control">
+        <br/>
+        <img id="link_img" src="" alt="">
+    </div>
+    <input id="upload" type="file" name="img" placeholder="图片" multiple="multiple">
+    <br/>
+    <a id="submit_upload" href="javascripts:void 0;">提交</a>
+</details>
 <script>
-    var url = location.origin;
+    var Url = location.origin;
     var ul = $('#ul');
     var count = $('#count');
     $('#get').click(function () {
         $.ajax({
-            url:url + '/lyk/getUser',
-            dataType:'json',
-            success:function (json) {
+            url: Url + '/lyk/getUser',
+            dataType: 'json',
+            success: function (json) {
                 var html = '';
-                $.each(json.users,function () {
-                    html += '<li>'+JSON.stringify(this)+'' +
-                            '<a href="javascript:void 0;" data-id="'+this._id+'">delete</a>' +
+                $.each(json.users, function () {
+                    html += '<li>' + JSON.stringify(this) + '' +
+                            '<a href="javascript:void 0;" data-id="' + this._id + '">delete</a>' +
                             '</li>';
                 });
                 count.html(json.users.length);
@@ -139,22 +156,92 @@
             }
         });
     });
-    ul.on('click','a',function (e) {
+    ul.on('click', 'a', function (e) {
         e = e || window.e;
         var target = e.target || e.srcElement;
         var id = $(target).data('id');
         $.ajax({
-            url:url + '/lyk/deleteUser',
-            dataType:'json',
-            type:'post',
-            data:{
-                id:id
+            url: Url + '/lyk/deleteUser',
+            dataType: 'json',
+            type: 'post',
+            data: {
+                id: id
             },
-            success:function (json) {
+            success: function (json) {
                 alert(json.message);
             }
         });
     })
+</script>
+<script>
+    var upload = {
+        url: Url + '/lyk/addList',
+        init: function () {
+            this.files = $('#upload');
+            this.link_img = $('#link_img');
+            this.link_title = $('#link_title');
+            this.link_classify = $('#link_classify');
+            this.link_url = $('#link_url');
+            this.submit_upload = $('#submit_upload');
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.files.on('change', function () {
+                upload.uploadFile();
+            });
+        },
+        uploadFile: function () {
+            var file = this.files[0].files[0];
+            if (file && /image/.test(file.type)) {
+                var windowUrl = window.URL || window.webkitURL;
+                this.link_img.attr('src', windowUrl.createObjectURL(file));//仿造 本地src
+
+                var fd = new FormData();
+                fd.append('classify', this.link_classify.val().split(' '));
+                fd.append('title', this.link_title.val());
+                fd.append('url', this.link_url.val());
+                fd.append("img", file);
+
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", upload.uploadProgress, false);
+                xhr.addEventListener("load", upload.uploadComplete, false);
+                xhr.addEventListener("error", upload.uploadFailed, false);
+                xhr.addEventListener("abort", upload.uploadCanceled, false);
+                xhr.addEventListener("readystatechange", upload.uploadState.bind(xhr), false);
+                xhr.open('POST', this.url, true);
+                xhr.send(fd);
+            }
+        },
+        uploadState: function (e) {
+            console.log(this);
+            if (this.status == 200 && this.readyState == 4) {
+                console.log(this.responseText)
+                var json = JSON.parse(this.responseText);
+                $('#link_img').attr('src',json.data.url);
+            }
+        },
+        uploadProgress: function (evt) {
+            var that = upload;
+            if (evt.lengthComputable) {
+                var percentComplete = Math.floor(evt.loaded * 100 / evt.total);
+                percentComplete > that.num ? that.num = percentComplete : '';
+            }
+            else {
+                console.log('上传完成');
+            }
+        },
+        uploadComplete: function (evt) {//上传完成
+            console.log('上传完成');
+        },
+        uploadFailed: function (evt) {//上传失败
+            console.log('上传失败');
+            console.log(evt);
+        },
+        uploadCanceled: function (evt) {//上传取消
+            console.log('上传取消')
+        }
+    };
+    upload.init();
 </script>
 </body>
 </html>

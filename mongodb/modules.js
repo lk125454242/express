@@ -3,3 +3,4 @@
  */
 var mongoose = require('mongoose');
 exports.User =  require('./schema/user').userSchema;
+exports.List = require('./schema/list').listSchema;
