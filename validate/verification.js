@@ -48,6 +48,10 @@ exports.noBlank = function (prop,msg) {
 exports.length = function (prop, min, max ,msg) {
     return function (req, res, next) {
         var value = req.body[prop];
+        if(!value){
+            res.error(msg + '不能为空');
+            return false;
+        }
         if(typeof value !== 'string') value = value[0];
         var length = value.length;
         if (max && length > max) {

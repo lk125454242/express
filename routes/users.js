@@ -10,6 +10,7 @@ var Redis = require('../config/server').Redis;
 var key = require('../config/config').secret;//获取全局配置密码
 var secret = require('../config/secret');//获取全局加密文件
 var tools = require('../tool_fn/base');//获取工具函数库
+var public_up = require('../config/upload').public_upload;//获取上传中间件
 
 var auth = require('../validate/auth');//权限验证
 
@@ -20,6 +21,7 @@ var User = mongoose.model('Users');
 router.all('*', auth.cookie_times);
 /* 注册账户 */
 router.post('/register',
+    public_up.single('img'),//上传中间件
     validate.required('username', '用户名'),//检测必填
     validate.length('username', 6, 12, '用户名'),//检测长度
     validate.character('username', '用户名'),//检测特殊字符
@@ -33,10 +35,7 @@ router.post('/register',
             if (users.length) {
                 res.error(param.username + '已经被注册，请修改账户名');
             } else {
-                var newUser = new User({
-                    username: param.username,
-                    password: param.password[0]
-                });
+                var newUser = new User(param);
                 newUser.save(function (err, newUser) {
                     if (err) {
                         res.error(JSON.stringify(err));

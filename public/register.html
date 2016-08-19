@@ -200,7 +200,7 @@
                 this.link_img.attr('src', windowUrl.createObjectURL(file));//仿造 本地src
 
                 var fd = new FormData();
-                fd.append('classify', this.link_classify.val().split(' '));
+                fd.append('classify', this.link_classify.val());
                 fd.append('title', this.link_title.val());
                 fd.append('url', this.link_url.val());
                 fd.append("img", file);
@@ -335,7 +335,7 @@
 
                 var fd = new FormData();
                 fd.append('id', this.mg_id.val());
-                fd.append('classify', this.link_classify.val().split(' '));
+                fd.append('classify', this.link_classify.val());
                 fd.append('title', this.link_title.val());
                 fd.append('url', this.link_url.val());
                 fd.append("img", file);

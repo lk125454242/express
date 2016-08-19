@@ -70,6 +70,7 @@ router.post('/addList',
     list.validate_list,
     function (req, res) {
         var param = req.body;
+        param.classify = param.classify.split(' ');
         param.timestamp = Date.now();
         param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
         var newList = new List(param);
@@ -91,6 +92,7 @@ router.post('/updateList',
     function (req, res) {
         var param = req.body;
         var id = param.id;
+        param.classify = param.classify.split(' ');
         delete param.id;
         param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
         List.findByIdAndUpdate(id, { $set: param }, function (err , list) {
