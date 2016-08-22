@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cors = require('cors');
-
+var _ = require('lodash');
 /* 启动所有服务链接 */
 require('./config/server');
 /*安装 mongoDB 中的所有modul  Schema*/
@@ -22,7 +22,7 @@ var root = require('./routes/root');
 var extendRes = require('./extend/res');
 
 var key = require('./config/config').secret;//获取密码
-
+var cookies_options = require('./config/cookies').cookie_options;
 var Redis = require('./config/server').Redis;
 /*应用*/
 var app = express();
@@ -43,25 +43,16 @@ app.use(session({
     //name: 'Auth',//表示cookie的name，默认cookie的name是：connect.sid
     resave: false,//是指每次请求都重新设置session cookie
     saveUninitialized: true,//是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid。
-    cookie: {
-        maxAge: 14400000, //4个小时
-        httpOnly: true, //浏览器禁止访问
-        path: '/', //此域名下全部可使用
-        secure: false//不需要使用https请求
-    }
+    cookie: _.assign({maxAge: 14400000 }, cookies_options)
 }));
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/lyk', root);
 //解决跨域问题
 app.use(cors());
 app.use('/', routes);
 app.use('/users', users);
-
 /* 扩展res */
 app.use(extendRes);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -69,7 +60,6 @@ app.use(function (req, res, next) {
     next(err);
 });
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -90,6 +80,4 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
-
 module.exports = app;

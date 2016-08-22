@@ -3,34 +3,29 @@
  */
 var qs = require('querystring');
 var mongoose = require('mongoose');
+var _ = require('lodash');
 var User = mongoose.model('Users');//获取user模版
 var tools = require('../tool_fn/base');//获取工具函数库
 var Redis = require('../config/server').Redis;//获取redis服务器
 var secret = require('../config/secret');//获取全局加密文件
+var cookies_options = require('../config/cookies').cookie_options;
+
+var cookie_4h =  _.assign({ maxAge: 14400000 }, cookies_options);
+var cookie_5m = _.assign({ maxAge: 300000 }, cookies_options);
 
 exports.setCookie = function (req, res, user) {
     var cookie = secret.cipher(qs.stringify({
         u: user.username
     }));
     var now = Date.now();
-    res.cookie('i', cookie, {
-        maxAge: 14400000, //4个小时
-        httpOnly: true, //浏览器禁止访问
-        path: '/', //此域名下全部可使用
-        secure: false//不需要使用https请求
-    }).cookie('Auth', {
+    res.cookie('i', cookie, cookie_4h).cookie('Auth', {
         email: user.email,
         birthday: user.birthday,
         nickname: user.nickname,
         head: user.head,
         usd: '' + user._id,
         tmp: now
-    }, {
-        maxAge: 14400000, //4个小时
-        httpOnly: false, //浏览器可以访问
-        path: '/', //此域名下全部可使用
-        secure: false//不需要使用https请求
-    }).success({
+    }, cookie_4h).success({
         code: 200,
         message: '登陆成功'
     });
@@ -47,12 +42,7 @@ exports.cookie_times = function (req, res, next) {
             return false;
         }
     }
-    res.cookie(originalUrl, number, {
-        maxAge: 300000, //5分钟
-        httpOnly: true, //浏览器禁止访问
-        path: '/', //此域名下全部可使用
-        secure: false//不需要使用https请求
-    });
+    res.cookie(originalUrl, number, cookie_5m);
     next();
 };
 //检测cookie session
@@ -70,7 +60,7 @@ exports.cookie_auth = function (req, res, next) {//校验cookie的正确性
             }
         })
     }else {
-        res.error('登录失效,请重新登录');
+        res.error('请登录');
     }
     return false;
 };
