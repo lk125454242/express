@@ -20,6 +20,8 @@
   "dependencies": {
     "jquery": "^3.0.0",
     "socket.io": "^1.4.8",
-    "mui": "^0.6.8"
+    "mui": "^0.6.8",
+    "lodash": "^4.15.0",
+    "zepto": "^1.1.6"
   }
 }

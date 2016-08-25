@@ -68,12 +68,12 @@
             success: function (json) {
                 var html = '';
                 $.each(json.users, function () {
-                    html += '<li>' + JSON.stringify(this) + '' +
+                    html += '<li>' + JSON.stringify(this) +
                             '<a href="javascript:void 0;" data-id="' + this._id + '">delete</a>' +
                             '</li>';
                 });
-                count.html(json.users.length);
                 ul.html(html);
+                count.html(json.users.length);
             }
         });
     });
