@@ -116,9 +116,10 @@ router.post('/login',
         });
     }
 );
+
 /* 登出 */
 router.post('/quit',
-    auth.cookie_auth,
+    auth.cookie_auth,//验证权限
     function (req, res, next) {
         var id = req.cookies.Auth.usd;
         Redis.set(id, false);//移出redis缓存池
@@ -129,10 +130,10 @@ router.post('/quit',
         });
     }
 );
-router.use('/', auth.cookie_auth);//验证权限
 
 /* 用户修改资料 */
 router.post('/update',
+    auth.cookie_auth,
     validate.required('username', '用户名'),//检测必填
     validate.length('username', 6, 12, '用户名'),//检测长度
     validate.character('username', '用户名'),//检测特殊字符
@@ -166,4 +167,41 @@ router.post('/update',
         });
     }
 );
+
+/* 账户关联 *//*
+router.post('/association',
+    auth.cookie_auth,
+    validate.required('username', '用户名'),//检测必填
+    validate.length('username', 6, 12, '用户名'),//检测长度
+    validate.character('username', '用户名'),//检测特殊字符
+    validate.containWord('username', '用户名'),//检测字母
+    validate.containNumber('username', '用户名'),//检测数字
+    function (req, res, next) {
+        var param = req.body;
+        User.findOne({username: param.username}, {}, function (err, user) {
+            if (err) {
+                res.error(JSON.stringify(err));
+            } else {
+                if (user) {
+                    param.password = param.password[0];
+                    delete param.username;
+                    User.findByIdAndUpdate(user._id, {$set: param}, {}, function (err, user) {
+                        if (err) {
+                            res.error(JSON.stringify(err));
+                        } else {
+                            res.success({
+                                code: 200,
+                                message: '修改成功'
+                            });
+                        }
+                    });
+                } else {
+                    res.error('此用户不存在');
+                }
+            }
+        });
+    }
+);
+*/
+
 module.exports = router;

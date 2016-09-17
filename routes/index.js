@@ -26,7 +26,7 @@ router.get('/getList', function (req, res) {
     if (timestamp) {
         opts = {timestamp: {$gt: timestamp}}
     }
-    List.find(opts).limit(+param.size).then(function (lists) {
+    List.find(opts).limit(+param.size || 10).then(function (lists) {
         res.success({
             code: 200,
             data: lists,

@@ -189,31 +189,29 @@
             this.bindEvent();
         },
         bindEvent: function () {
-            this.files.on('change', function () {
-                upload.uploadFile();
-            });
+            this.files.on('change',upload.uploadFile);
+            this.submit_upload.on('click',upload.uploadFile)
         },
         uploadFile: function () {
-            var file = this.files[0].files[0];
-            if (file && /image/.test(file.type)) {
+            var that = upload;
+            var fd = new FormData();
+            fd.append('classify', that.link_classify.val());
+            fd.append('title', that.link_title.val());
+            fd.append('url', that.link_url.val());
+            var file = that.files[0].files[0];
+            if (file && /image/.test(file.type)) {//如果有文件 那么放进去
                 var windowUrl = window.URL || window.webkitURL;
-                this.link_img.attr('src', windowUrl.createObjectURL(file));//仿造 本地src
-
-                var fd = new FormData();
-                fd.append('classify', this.link_classify.val());
-                fd.append('title', this.link_title.val());
-                fd.append('url', this.link_url.val());
+                that.link_img.attr('src', windowUrl.createObjectURL(file));//仿造 本地src
                 fd.append("img", file);
-
-                var xhr = new XMLHttpRequest();
-                xhr.upload.addEventListener("progress", upload.uploadProgress, false);
-                xhr.addEventListener("load", upload.uploadComplete, false);
-                xhr.addEventListener("error", upload.uploadFailed, false);
-                xhr.addEventListener("abort", upload.uploadCanceled, false);
-                xhr.addEventListener("readystatechange", upload.uploadState.bind(xhr), false);
-                xhr.open('POST', this.url, true);
-                xhr.send(fd);
             }
+            var xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener("progress", upload.uploadProgress, false);
+            xhr.addEventListener("load", upload.uploadComplete, false);
+            xhr.addEventListener("error", upload.uploadFailed, false);
+            xhr.addEventListener("abort", upload.uploadCanceled, false);
+            xhr.addEventListener("readystatechange", upload.uploadState.bind(xhr), false);
+            xhr.open('POST', that.url, true);
+            xhr.send(fd);
         },
         uploadState: function (e) {
             console.log(this);

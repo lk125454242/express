@@ -45,6 +45,7 @@ app.use(session({
     saveUninitialized: true,//是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid。
     cookie: _.assign({maxAge: 14400000 }, cookies_options)
 }));
+require('./mysql/tables/user');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lyk', root);
 //解决跨域问题

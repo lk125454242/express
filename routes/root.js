@@ -72,7 +72,9 @@ router.post('/addList',
         var param = req.body;
         param.classify = param.classify.split(' ');
         param.timestamp = Date.now();
-        param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
+        if(param.img){
+            param.img = req.file.path.replace(/public/,'').replace(/\\/g,'\/');
+        }
         var newList = new List(param);
         newList.save((err,newList)=>{
             if(err){
