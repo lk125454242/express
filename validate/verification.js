@@ -18,6 +18,7 @@ exports.equal = function (prop,msg) {
     return function (req, res, next) {
         var body = req.body;
         if (body[prop][0] === body[prop][1]) {
+            body[prop] = body[prop][0];
             next();
         }else {
             res.error(msg + '两次输入不一致');

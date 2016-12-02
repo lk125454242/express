@@ -10,6 +10,7 @@ var cors = require('cors');
 var _ = require('lodash');
 /* 启动所有服务链接 */
 require('./config/server');
+var wx = require('./config/wx');
 /*安装 mongoDB 中的所有modul  Schema*/
 require('./mongodb/modules');
 
@@ -52,6 +53,9 @@ app.use('/lyk', root);
 app.use(cors());
 app.use('/', routes);
 app.use('/users', users);
+app.use('/wx',function (req, res) {
+    res.send(req.query.echostr);
+});
 /* 扩展res */
 app.use(extendRes);
 // catch 404 and forward to error handler
